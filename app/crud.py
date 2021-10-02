@@ -21,3 +21,11 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def create_game(db: Session, name: str, owner_id: int):
+    db_game = models.Game(name=name, owner_id=owner_id)
+    db.add(db_game)
+    db.commit()
+    db.refresh(db_game)
+    return db_game

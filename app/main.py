@@ -122,3 +122,9 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+@app.post("/games/", response_model=schemas.Game)
+async def read_users_me(name: str, db: Session = Depends(get_db), current_user: schemas.User = Depends(get_current_active_user)):
+    db_game = crud.create_game(db, name, current_user.id)
+    return db_game 
+
