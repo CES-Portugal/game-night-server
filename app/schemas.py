@@ -24,3 +24,23 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+
+###### GAMEs
+class Game(BaseModel):
+    id: int
+    name: str
+    owner_id: int
+    is_active: bool
+    class Config:
+        orm_mode = True
+
+class Gaming(BaseModel):
+    id: int
+    game_id: int 
+    player_id: int
+
+    class Config:
+        orm_mode = True
+
