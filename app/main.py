@@ -14,11 +14,11 @@ models.Base.metadata.create_all(bind=engine)
 
 # to get a string like this run:
 # openssl rand -hex 32
-SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+SECRET_KEY = ""
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 180
 
-SIGNIN_TOKEN = "$2b$12$5xLDedv7fo048bbYCETw3egJihowTVxkDjbAgnl/xdQJMUFD3RCYe"
+SIGNIN_TOKEN = "$2a$12$qSXjh2.1XBayJjmwEzp3SuyhJ43NIDbxTm6Ol88gVLDBSbxbxBVXS"
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -112,9 +112,12 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 @app.get("/users/", response_model=List[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    users = crud.get_users(db, skip=skip, limit=limit)
-    return users
+def read_users(skip: int = 0, limit: int = 100, sort: str = None,db: Session = Depends(get_db)):
+    if sort == 'points':
+        return crud.get_users_by_points(db, skip=skip, limit=limit)
+    else:
+        return crud.get_users(db, skip=skip, limit=limit)
+
 
 @app.get("/users/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
