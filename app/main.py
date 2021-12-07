@@ -21,7 +21,7 @@ SECRET_KEY = ""
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 180
 
-SIGNIN_TOKEN = "$2a$12$qSXjh2.1XBayJjmwEzp3SuyhJ43NIDbxTm6Ol88gVLDBSbxbxBVXS"
+SIGNIN_TOKEN = "$2a$12$lSfkJJzwO1ZFMzjI6.yhcuBfqc9/m3riCSwOc3tKKkXplmWx6Xtjy"
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
